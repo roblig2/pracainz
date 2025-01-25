@@ -27,7 +27,6 @@ public class WebSecurityConfig {
 
 	@Value("${jwt.secret}")
 	private String secret;
-	private final UserDetailsServiceImpl userDetailsService;
 
 
 //	public SecurityConfig(SecretsManagerService secretsManagerService,UserDetailsServiceImpl userDetailsService,@Value("${secrets.location}") String secretLocation) {
@@ -36,9 +35,6 @@ public class WebSecurityConfig {
 //		this.userDetailsService = userDetailsService;
 //	}
 
-	public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager,UserDetailsServiceImpl userDetailsService) throws Exception {
@@ -49,7 +45,8 @@ public class WebSecurityConfig {
 					"http://amer-test-fronted.s3-website-us-east-1.amazonaws.com",
 					"http://amer-event.s3-website.eu-central-1.amazonaws.com",
 					"https://www.praca-amer-event.pl",
-					"https://www.event-manager.online"));
+					"https://www.event-manager.online",
+					"*"));
 			configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 			configuration.setAllowedHeaders(List.of("*"));
 //			configuration.setMaxAge(3600L);
