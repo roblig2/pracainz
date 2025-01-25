@@ -1,0 +1,11 @@
+<ng-container *ngIf="isLoggedIn$ | async ;else fullpage">
+  <app-header-main>
+    <router-outlet></router-outlet>
+  </app-header-main>
+</ng-container>
+<ng-template #fullpage>
+  <router-outlet></router-outlet>
+</ng-template>
+<!--<app-admin></app-admin>-->
+<!--<app-workday-form></app-workday-form>-->
+<!--<app-event-list></app-event-list>-->
