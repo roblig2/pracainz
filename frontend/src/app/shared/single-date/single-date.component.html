@@ -1,0 +1,8 @@
+<mat-form-field class="date-form-field">
+  <mat-label>{{label}}</mat-label>
+  <input matInput readonly [matDatepicker]="pickerFrom" formControlName="{{controlName}}" [min]="minDate" [max]="" required="required" (click)="disabled ? null : pickerFrom.open()" (dateChange)="changeDate($event)" >
+  <mat-hint>{{dateFormat}}</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="pickerFrom" [disabled]="disabled"></mat-datepicker-toggle>
+  <mat-datepicker #pickerFrom></mat-datepicker>
+  <mat-error *ngIf="parentFormGroup.get(controlName)?.hasError('required')">Proszę podać poprawną datę</mat-error>
+</mat-form-field>

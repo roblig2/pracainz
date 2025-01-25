@@ -1,0 +1,41 @@
+<mat-card class="details-card">
+  <mat-card-title class="event-card-title">Szczegóły Użytkownika {{userForm.get('name')?.value}}
+    <button mat-icon-button *ngIf="showActionIcons" (click)="onEdit()">
+      <mat-icon class="icon">edit</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="showActionIcons" (click)="onDelete()">
+      <mat-icon class="icon">delete</mat-icon>
+    </button>
+  </mat-card-title>
+  <mat-card-content class="container">
+    <form [formGroup]="userForm" class="form-grid">
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Name</mat-label>
+          <input matInput formControlName="name" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Adres Email</mat-label>
+          <input matInput formControlName="mail" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Numer telefonu</mat-label>
+          <input matInput formControlName="phoneNumber" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Czy jest kierowcą</mat-label>
+          <input matInput formControlName="driver" readonly class="readonly">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

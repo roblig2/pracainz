@@ -1,0 +1,12 @@
+<mat-dialog-content class="dialog-content">
+  <h2 mat-dialog-title class="dialog-title">{{data.header}}</h2>
+  <div class="complaint-item">
+    <p>{{ data.user }} - {{ data.message }}</p>
+    <div>
+      <button mat-button (click)="onYes()">TAK</button>
+      <button mat-button (click)="onNo()">NIE</button>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+</mat-dialog-actions>

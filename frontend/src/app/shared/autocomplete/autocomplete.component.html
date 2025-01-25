@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col">
+    <mat-form-field class="form-field">
+      <mat-label>{{label}}</mat-label>
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let user of selectedUsers" class="chip">
+          {{ displayUserName(user) }}
+          <mat-icon (click)="removeUser(user)">close</mat-icon>
+        </mat-chip>
+        <input type="text"
+               matInput
+               [formControl]="searchCtrl"
+               placeholder="Wpisz aby wyszukać"
+               [matAutocomplete]="userSuggestionPanel" />
+      </mat-chip-listbox>
+
+      <mat-autocomplete #userSuggestionPanel="matAutocomplete" (optionSelected)="onOptionSelect($event)">
+        <mat-option [value]="user" *ngFor="let user of user$ | async">
+          <mat-checkbox [checked]="checkSelectedUser(user)">{{ displayUserName(user) }}</mat-checkbox>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>

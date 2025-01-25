@@ -1,0 +1,62 @@
+
+.form-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: calc(100vh - var(--header-height));
+  margin: 0; /* Ensure no default margin */
+}
+
+/* Style the form field to be displayed as a column and centered */
+.date-form-field {
+  width: 100%;
+  max-width: 400px; /* Adjust the max-width as needed */
+  margin: 10px 0; /* Center the form field horizontally and add vertical spacing */
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+}
+
+/* Add some spacing between elements inside mat-form-field */
+.mat-form-field-flex {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; /* Ensure the elements inside the form field are displayed as a column */
+}
+
+/* Ensure the button has a margin at the top */
+button {
+  margin-top: 10px;
+}
+
+/* Style for error hints */
+.mat-error {
+  color: #f44336; /* Standard Material error color */
+}
+
+/* Ensure the form container takes up the full viewport height and centers its content */
+@media screen and (min-width:600px) {
+  .form-container{
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+  /* Style the form field to be displayed as a column and centered */
+  .date-form-field {
+    width: auto;
+    margin: 10px; /* Center the form field horizontally and add vertical spacing */
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+  }
+}

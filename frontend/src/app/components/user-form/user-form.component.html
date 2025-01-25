@@ -1,0 +1,63 @@
+
+  <div class="form-container">
+  <h1 class="header-heading">{{header}}</h1>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Imię</mat-label>
+        <input matInput id="firstName" formControlName="firstName" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Nazwisko</mat-label>
+        <input matInput id="lastName" formControlName="lastName" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Adres e-mail</mat-label>
+        <input matInput id="username" formControlName="username" type="email">
+      </mat-form-field>
+      <div *ngIf="isEdit">
+        <mat-checkbox formControlName="editPassword" (change)="toggleChangePassword()" >
+          Czy chcesz zmienić użytkownikowi hasło?
+        </mat-checkbox>
+      </div>
+      <div class="form-content">
+        <div class="password">
+
+          <mat-form-field appearance="fill" >
+            <mat-label>Hasło</mat-label>
+            <input matInput id="password" formControlName="password" type="text">
+          </mat-form-field>
+        </div>
+        <div class="generate-password">
+          <button mat-raised-button  type="button" (click)="generateRandomPassword()" [disabled]="userForm.controls['editPassword'].value===false">{{"random.password" | translate}}</button>
+        </div>
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Numer telefonu</mat-label>
+        <input matInput id="phoneNumber" formControlName="phoneNumber" type="tel">
+      </mat-form-field>
+
+<!--      <mat-form-field appearance="fill">-->
+<!--        <mat-label>Age</mat-label>-->
+        <app-single-date [controlName]="'dateOfBirth'" [label]="'Podaj Datę urodzenia'" [isRequired]="true" [minDate]="getMinimumDate()"></app-single-date>
+<!--        <input matInput id="age" formControlName="age" type="number">-->
+<!--      </mat-form-field>-->
+      <div>
+        <mat-checkbox formControlName="isDriver">Czy jest kierowcą</mat-checkbox>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Rola</mat-label>
+        <mat-select formControlName="roles" multiple>
+          <mat-option *ngFor="let role of selectRoles" [value]="role">
+            {{ getRoleName(role) }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="submit">
+        <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">{{"submit" |translate}}</button>
+      </div>
+    </form>
+
+</div>
+

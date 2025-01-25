@@ -1,0 +1,20 @@
+<mat-form-field>
+  <mat-label>{{label}}</mat-label>
+  <mat-select formControlName="{{controlName}}" multiple (closed)="onSelectionChange()">
+    <mat-option>
+    <ngx-mat-select-search formControlName="{{controlName}}" [noEntriesFoundLabel]="'noresult' | translate" [placeholderLabel]="'Mamed'" (input)="filterSelection($event.target)"></ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let user of users" [value]="user.id">
+      {{user.userCredentials.username}} ({{user.isDriver ? 'Kierowca' : 'Użytkownik'}})
+    </mat-option>
+  </mat-select>
+
+</mat-form-field>
+<br>
+<span *ngIf="driverMessage !== ''" class="message">{{driverMessage}}</span>
+<br>
+<span *ngIf="userMessage !== ''" class="message">{{userMessage}}</span>
+
+
+
+

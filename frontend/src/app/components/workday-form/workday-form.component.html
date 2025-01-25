@@ -1,0 +1,26 @@
+
+<div class="event-container">
+  <h1 class="header-heading">{{"availability" | translate}}</h1>
+
+  <form [formGroup]="workdayForm" (ngSubmit)="onSubmit()" class="form-container">
+    <div class="form-content">
+      <ng-container *ngIf="workdayForm.get('hasRemarks')?.value; else dateRange">
+        <app-single-date [label]="'Podaj Datę'" [controlName]="'date'" [isRequired]="true"></app-single-date>
+      </ng-container>
+      <ng-template #dateRange>
+        <app-dates-from-to [isRequired]="true" [suppressDates]="true"></app-dates-from-to>
+      </ng-template>
+      <br>
+      <mat-checkbox formControlName="hasRemarks" (change)="toggleRemarks()">{{"susspress.hours" |translate}}</mat-checkbox>
+      <br>
+      <mat-form-field *ngIf="workdayForm.get('hasRemarks')?.value" class="remarks">
+        <mat-label>{{"only.emergency" | translate}}</mat-label>
+        <textarea matInput formControlName="remark" maxlength="100" style="resize: none;"></textarea>
+        <mat-hint align="end">{{workdayForm.get('remark')?.value?.length || 0}}/100</mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" type="submit" [disabled]="isSubmitDisabled()">{{"submit" | translate}}</button>
+    </div>
+  </form>
+</div>
+

@@ -1,0 +1,14 @@
+<div class="form-container">
+  <form [formGroup]="formGroup" (submit)="submit()">
+    <div *ngIf="loginError()" class="error">Podaj poprawne dane logowania</div>
+    <mat-form-field>
+      <mat-label>email</mat-label>
+      <input matInput formControlName="username" type="email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Hasło</mat-label>
+      <input type="password" matInput formControlName="password">
+    </mat-form-field>
+    <button mat-flat-button color="primary">Zaloguj</button>
+  </form>
+</div>

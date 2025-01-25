@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.header}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message!=null ? data.message : 'Czy chcesz zrezygnować z daty: ' + data.date}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onYes()">Tak</button>
+  <button mat-button (click)="onNo()">Nie</button>
+</div>

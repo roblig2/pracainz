@@ -1,0 +1,18 @@
+<ng-container [formGroup]="form" class="form-container">
+  <mat-form-field class="date-form-field">
+    <mat-label>Podaj datę od</mat-label>
+    <input matInput readonly [matDatepicker]="pickerFrom" formControlName="calendarFrom" [min]="getMinDate()" (dateChange)="updateDate($event)" [max]="getMaxDate()">
+    <mat-hint [class]="shouldPresentError('calendarFrom') ? 'mat-error':''">{{shouldPresentError('calendarFrom') ? getErrorMessage() : dateFormat}}</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="date-form-field">
+    <mat-label>Podaj datę do</mat-label>
+    <input readonly matInput [matDatepicker]="pickerTo" formControlName="calendarTo" [min]="getMinDate()" [max]="getMaxDate()" (dateChange)="updateDate($event)">
+    <mat-hint [class]="shouldPresentError('calendarTo') ? 'mat-error':''">{{shouldPresentError('calendarTo') ? getErrorMessage() : dateFormat}}</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+    <mat-error *ngIf="form.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+</ng-container>

@@ -1,0 +1,27 @@
+
+<form [formGroup]="filterForm" class="filter-form">
+  <mat-form-field class="filter-field">
+    <mat-label>Imię</mat-label>
+    <input matInput formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field class="filter-field">
+    <mat-label>Nazwisko</mat-label>
+    <input matInput formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field class="filter-field">
+    <mat-label>email</mat-label>
+    <input matInput formControlName="username">
+  </mat-form-field>
+<!--  <app-dates-from-to></app-dates-from-to>-->
+  <mat-checkbox formControlName="isDriver" class="filter-checkbox">czy jest kierowcą</mat-checkbox>
+  <button mat-raised-button (click)="search()" class="filter-button">search</button>
+</form>
+<app-table
+  [url]="url"
+  (pageChange)="onPageChange($event)"
+  (sortChange)="onSortChange($event)"
+  [tableColumns]="tableColumns"
+
+  [tableData]="events()">
+</app-table>
+

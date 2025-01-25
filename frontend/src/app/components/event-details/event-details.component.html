@@ -1,0 +1,109 @@
+<mat-card class="details-card">
+  <mat-card-title class="event-card-title">Szczegóły Wydarzenia
+    <button mat-icon-button *ngIf="showAdminElements" (click)="onEdit()">
+      <mat-icon class="icon">edit</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="showAdminElements" (click)="onDelete()">
+      <mat-icon class="icon">delete</mat-icon>
+    </button>
+  </mat-card-title>
+  <mat-card-content class="container">
+    <form [formGroup]="eventForm" class="form-grid">
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Name</mat-label>
+          <input matInput formControlName="name" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Miejsce</mat-label>
+          <input matInput formControlName="location" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Data Wydarzenia</mat-label>
+          <input matInput formControlName="date" readonly class="readonly">
+        </mat-form-field>
+      </div>
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Godzina Wydarzenia</mat-label>
+          <input matInput formControlName="eventTime" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item" *ngIf="showAdminElements">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Wymagana ilość eventowców</mat-label>
+          <input matInput formControlName="requiredUsers" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item" *ngIf="showAdminElements">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Wymagana ilość kierowców</mat-label>
+          <input matInput formControlName="requiredDrivers" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Data ładowania auta</mat-label>
+          <input matInput formControlName="datePacking" readonly class="readonly">
+        </mat-form-field>
+      </div>
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Godzina ładowania auta</mat-label>
+          <input matInput formControlName="packingTime" readonly class="readonly">
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item">
+        <mat-form-field class="full-width">
+          <mat-label [class]="getMissingPeopleCount() ==='' ? 'readonly' : 'readonly-warning'">Przypisani użytkownicy {{getMissingPeopleCount()}}</mat-label>
+          <mat-list formArrayName="assignedUserIds">
+            <mat-list-item *ngFor="let user of assignedUserIds.controls; let i = index">
+              <input matInput [formControlName]="i" readonly class="readonly">
+            </mat-list-item>
+          </mat-list>
+        </mat-form-field>
+      </div>
+      <div class="form-grid-item" >
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Przypisani do załadunku auta</mat-label>
+          <mat-list formArrayName="availablePackingUsers">
+            <mat-list-item *ngFor="let user of availablePackingUsers.controls; let i = index">
+              <input matInput [formControlName]="i" readonly class="readonly">
+            </mat-list-item>
+          </mat-list>
+        </mat-form-field>
+      </div>
+      <div class="form-grid-item" *ngIf="showAdminElements">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly-warning">Czarna Lista</mat-label>
+          <mat-list formArrayName="blackListedUsers">
+            <mat-list-item *ngFor="let user of blackListedUsers.controls; let i = index">
+              <input matInput [formControlName]="i" readonly class="readonly-warning">
+            </mat-list-item>
+          </mat-list>
+        </mat-form-field>
+      </div>
+
+      <div class="form-grid-item" *ngIf="showAdminElements">
+        <mat-form-field class="full-width">
+          <mat-label class="readonly">Potwierdzeni użytkownicy</mat-label>
+          <mat-list formArrayName="confirmedUsers">
+            <mat-list-item *ngFor="let user of confirmedUsers.controls; let i = index">
+              <input matInput [formControlName]="i" readonly class="readonly">
+            </mat-list-item>
+          </mat-list>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

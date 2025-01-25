@@ -1,0 +1,67 @@
+
+<div class="form-container">
+  <h1 class="header-heading">{{header}}</h1>
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Nazwa wydarzenia</mat-label>
+      <input matInput type="text" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Miejsce wydarzenia</mat-label>
+      <input matInput type="text" formControlName="location" required>
+    </mat-form-field>
+    <div *ngIf="isEdit">
+      <mat-checkbox formControlName="editDate" (change)="toggleEventDateControl()" >
+        Czy chcesz zmienić datę wydarzenia?
+      </mat-checkbox>
+    </div>
+    <div class="form-field">
+      <app-single-date [label]="'Podaj Datę Wydarzenia'" [controlName]="'date'" [isRequired]="!eventForm.get('editDate')?.value" (changeEventDate)="getAvailableUsers($event)" [disabled]="!eventForm.get('editDate')?.value"></app-single-date>
+    </div>
+    <div class="form-field">
+      <mat-form-field appearance="fill">
+        <mat-label>Wybierz godzinę</mat-label>
+        <input matInput  [format]=24 [ngxTimepicker]="picker" placeholder="Wybierz godzinę wydarzenia" formControlName="eventTime" readonly>
+        <ngx-material-timepicker  [enableKeyboardInput]="false" #picker></ngx-material-timepicker>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Wymagana liczba użytkowników</mat-label>
+      <input matInput type="number" formControlName="requiredUsers" required min="0">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Wymagana liczba kierowców</mat-label>
+      <input matInput type="number" formControlName="requiredDrivers" required min="0">
+    </mat-form-field>
+    <div class="form-field">
+<!--      <app-multi-select [label]="'Wybierz Ludzi Do Eventu'" [controlName]="'availableUsers'"></app-multi-select>-->
+      <app-autocomplete (availableSelectedUsers)="updateAvailableUsers($event)" [fullUser]="usersForEvent()" [selectedUsers]="bookedUsers()"></app-autocomplete>
+    </div>
+    <div *ngIf="isEdit">
+      <mat-checkbox formControlName="editDatePacking" (change)="togglePackingDateControl()">
+        Czy chcesz zmienić datę pakowania?
+      </mat-checkbox>
+    </div>
+    <div class="form-field">
+      <app-single-date [label]="'Podaj Datę Pakowania Auta'" [controlName]="'datePacking'" [isRequired]="!eventForm.get('editDatePacking')?.value"  (changeEventDate)="getAvailablePackingUsers($event)" [disabled]="!eventForm.get('editDatePacking')?.value"></app-single-date>
+    </div>
+    <div class="form-field">
+      <mat-form-field appearance="fill">
+        <mat-label>Wybierz godzinę</mat-label>
+        <input matInput  [format]=24 [ngxTimepicker]="packingTime" placeholder="Wybierz godzinę pakowania auta" formControlName="packingTime" readonly>
+        <ngx-material-timepicker  [enableKeyboardInput]="false" #packingTime></ngx-material-timepicker>
+      </mat-form-field>
+    </div>
+    <div class="form-field">
+<!--      <app-multi-select [label]="'Wybierz Ludzi do pakowania'" [controlName]="'availableUsers'"></app-multi-select>-->
+      <app-autocomplete [label]="'Dodaj ludzi do pakowania'" [controlName]="'availablePackingUsers'" (availableSelectedUsers)="updateAvailablePackingUsers($event)" [fullUser]="usersForPacking()" [selectedUsers]="bookedPackingUsers()"></app-autocomplete>
+    </div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">Utwórz</button>
+  </form>
+
+<!--  <h2>Wszystkie wydarzenia</h2>-->
+<!--  <ul *ngIf="pageable$ | async as pageable">-->
+<!--    <li *ngFor="let event of pageable.content">{{ event.name }} - {{ event.date }}</li>-->
+<!--  </ul>-->
+</div>
+

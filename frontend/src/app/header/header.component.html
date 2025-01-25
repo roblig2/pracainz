@@ -1,0 +1,35 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Amer Event</mat-toolbar>
+    <mat-nav-list>
+      <ng-container *ngIf="isAdmin() === RoleEnum.ADMIN">
+        <a mat-list-item routerLink="/createEvent" routerLinkActive="active">Utwórz Wydarzenie</a>
+        <a mat-list-item routerLink="/eventList" routerLinkActive="active" >Lista eventów</a>
+        <a mat-list-item routerLink="/createUser" routerLinkActive="active" >Utwórz użytkownika</a>
+        <a mat-list-item routerLink="/userList" routerLinkActive="active" >Lista użytkowników</a>
+      </ng-container>
+      <a mat-list-item routerLink="/home" routerLinkActive="active">Gotowość do pracy</a>
+      <a mat-list-item routerLink="/availabilityList" routerLinkActive="active">Moja gotowość</a>
+      <a mat-list-item routerLink="/myEvents" routerLinkActive="active">Moje Eventy</a>
+      <a mat-list-item routerLink="/changePassword" routerLinkActive="active">Zmień hasło</a>
+      <a mat-list-item routerLink="/" (click)="logout()">Wyloguj</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+
+        <button *ngIf="isHandset$ | async"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

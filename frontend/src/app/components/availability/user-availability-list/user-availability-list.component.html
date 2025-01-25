@@ -1,0 +1,18 @@
+
+<form [formGroup]="filterForm" class="filter-form">
+  <app-dates-from-to ></app-dates-from-to>
+
+  <button mat-raised-button (click)="search()" class="filter-button">search</button>
+</form>
+<app-table
+  [url]="url"
+  [isUrlActive]="false"
+  [showActions]="true"
+  [singleAction]="true"
+  (pageChange)="onPageChange($event)"
+  (sortChange)="onSortChange($event)"
+  (actionChange)="handleAction($event)"
+  [tableColumns]="tableColumns"
+  [tableData]="events()">
+</app-table>
+

@@ -1,0 +1,13 @@
+{
+  "submit": "Wyślij",
+  "availability": "Kiedy możesz pracować?",
+  "DRIVER_MESSAGE": "Powinieneś wybrać co najmniej {{requiredDrivers}} kierowców.",
+  "USER_MESSAGE": "Powinieneś wybrać co najmniej {{requiredUsers}} użytkowników.",
+  "susspress.hours": "Ogranicz godziny",
+  "only.emergency": "Np. od 8:30 do 14:30",
+  "random.password": "Generuj",
+  "create.user": "Utwórz użytkownika",
+  "edit.user": "Edycja użytkownika",
+  "logout": "Wylogowano",
+  "noresult": "Brak wyników"
+}
