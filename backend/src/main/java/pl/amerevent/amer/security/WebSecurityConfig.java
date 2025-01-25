@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,20 +15,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import pl.amerevent.amer.model.ERole;
-import pl.amerevent.amer.repository.UserCredentialRepository;
-import pl.amerevent.amer.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @Configuration
 @EnableWebSecurity(debug = true)
 @EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
-public class SecurityConfig {
+public class WebSecurityConfig {
 
 	@Value("${jwt.secret}")
 	private String secret;
@@ -42,7 +36,7 @@ public class SecurityConfig {
 //		this.userDetailsService = userDetailsService;
 //	}
 
-	public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+	public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
 		this.userDetailsService = userDetailsService;
 	}
 
@@ -54,7 +48,8 @@ public class SecurityConfig {
 					"http://localhost:4200",
 					"http://amer-test-fronted.s3-website-us-east-1.amazonaws.com",
 					"http://amer-event.s3-website.eu-central-1.amazonaws.com",
-					"https://www.praca-amer-event.pl"));
+					"https://www.praca-amer-event.pl",
+					"https://www.event-manager.online"));
 			configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 			configuration.setAllowedHeaders(List.of("*"));
 //			configuration.setMaxAge(3600L);
