@@ -13,9 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.amerevent.amer.mapper.EventMapper;
+import pl.amerevent.amer.mapper.UserCollectionMapper;
+import pl.amerevent.amer.mapper.UserMapper;
 import pl.amerevent.amer.model.*;
+import pl.amerevent.amer.model.dto.EventDto;
 import pl.amerevent.amer.model.dto.EventSearchRequest;
 import pl.amerevent.amer.model.dto.ResponseMessage;
+import pl.amerevent.amer.model.dto.UserDto;
 import pl.amerevent.amer.repository.EventRepository;
 
 import java.time.LocalDate;
@@ -27,39 +32,35 @@ public class EventService {
 
 	private final EventRepository eventRepository;
 	private final EventUserService eventUserService;
-	private final RoleService roleService;
 
-	public Event createEvent(Event event) {
-		int usersSize = Objects.nonNull(event.getAvailableUsers()) ? event.getAvailableUsers().size() : 0;
-		event.setIsMissingPeople(event.getRequiredUsers() > usersSize) ;
+	public Event createEvent(EventDto eventDto) {
+		int usersSize = Objects.nonNull(eventDto.getAvailableUsers()) ? eventDto.getAvailableUsers().size() : 0;
+		Set<User> availableUsers = UserCollectionMapper.INSTANCE.toEntityCollection(eventDto.getAvailableUsers());
+//		.forEach(user -> availableUsers.add(UserMapper.INSTANCE.toEntity(user)));
+		Set<User> availablePackingUsers = UserCollectionMapper.INSTANCE.toEntityCollection(eventDto.getAvailablePackingUsers());
+//		User availableUser = UserMapper.INSTANCE.toEntity(eventDto.getAvailableUsers().stream().findFirst().get());
+
+		Event event = Event.builder()
+				.eventTime(eventDto.getEventTime())
+				.date(eventDto.getDate())
+				.datePacking(eventDto.getDatePacking())
+				.availablePackingUsers(availableUsers)
+				.location(eventDto.getLocation())
+				.requiredDrivers(eventDto.getRequiredDrivers())
+				.isMissingPeople(eventDto.getRequiredUsers() > usersSize)
+				.packingTime(eventDto.getPackingTime())
+				.availableUsers(availablePackingUsers)
+						.build();
 		return eventRepository.save(event);
 	}
 
-	public ResponseEntity<Event> updateEvent(Event event) {
+	public ResponseEntity<Event> updateEvent(EventDto event) {
 		Optional<Event> eventOpt = eventRepository.findById(event.getId());
 		if(eventOpt.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		Event existingEvent = eventOpt.get();
-		existingEvent.setName(event.getName());
-		if (Objects.nonNull(event.getDate())) {
-			existingEvent.setDate(event.getDate());
-		}
-		if (Objects.nonNull(event.getDatePacking())) {
-			existingEvent.setDatePacking(event.getDatePacking());
-		}
-		existingEvent.setEventTime(event.getEventTime());
-		existingEvent.setPackingTime(event.getPackingTime());
-		existingEvent.setRequiredUsers(event.getRequiredUsers());
-		existingEvent.setRequiredDrivers(event.getRequiredDrivers());
-		existingEvent.setAvailableUsers(event.getAvailableUsers());
-		existingEvent.setAvailablePackingUsers(event.getAvailablePackingUsers());
-		if (Objects.nonNull(event.getBlackListedUsers())) {
-			existingEvent.setBlackListedUsers(event.getBlackListedUsers());
-		}
-		if (Objects.nonNull(event.getConfirmedUsers())) {
-			existingEvent.setConfirmedUsers(event.getConfirmedUsers());
-		}
+		EventMapper.INSTANCE.updateEntityFromDto(event, existingEvent);
 		int usersSize = Objects.nonNull(event.getAvailableUsers()) ? event.getAvailableUsers().size() : 0;
 		existingEvent.setIsMissingPeople(event.getRequiredUsers() > usersSize) ;
 		return new ResponseEntity<>(eventRepository.save(existingEvent), HttpStatus.CREATED);

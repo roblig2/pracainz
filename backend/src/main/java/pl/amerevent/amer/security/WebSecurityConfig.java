@@ -37,13 +37,13 @@ public class WebSecurityConfig {
 
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager,UserDetailsServiceImpl userDetailsService) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager, UserDetailsService userDetailsService) throws Exception {
 		http.cors(cors -> cors.configurationSource(request -> {
 			CorsConfiguration configuration = new CorsConfiguration();
 			configuration.setAllowedOrigins(Arrays.asList(
 					"http://localhost:4200",
-					"http://amer-test-fronted.s3-website-us-east-1.amazonaws.com",
-					"http://amer-event.s3-website.eu-central-1.amazonaws.com",
+//					"http://amer-test-fronted.s3-website-us-east-1.amazonaws.com",
+//					"http://amer-event.s3-website.eu-central-1.amazonaws.com",
 					"https://www.praca-amer-event.pl",
 					"https://www.event-manager.online",
 					"*"));
@@ -87,15 +87,15 @@ public class WebSecurityConfig {
 //		return authProvider;
 //	}
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-//		UserDetails admin = User.withDefaultPasswordEncoder()
-//				.username("admin@gmail.com")
-//				.password("test")
-//				.roles("admin")
-//				.authorities("admin")
-//				.build();
-////		return new InMemoryUserDetailsManager(admin);
-		return new UserDetailsServiceImpl();
-	}
+//	@Bean
+//	public org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
+////		UserDetails admin = User.withDefaultPasswordEncoder()
+////				.username("admin@gmail.com")
+////				.password("test")
+////				.roles("admin")
+////				.authorities("admin")
+////				.build();
+//////		return new InMemoryUserDetailsManager(admin);
+//		return new UserDetailsServiceImpl();
+//	}
 }

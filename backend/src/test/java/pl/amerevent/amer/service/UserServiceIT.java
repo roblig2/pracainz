@@ -25,8 +25,8 @@ class UserServiceIT {
 	void testAddUser_ShouldSaveUserToDatabase() {
 		// Arrange
 		User user = new User();
-		user.setFirstName("John");
-		user.setLastName("Doe");
+		user.setFirstName("Jan");
+		user.setLastName("Kowalski");
 
 		// Act
 		userService.addUser(user);
@@ -34,7 +34,7 @@ class UserServiceIT {
 		// Assert
 		assertThat(userRepository.findAll()).hasSize(1);
 		User savedUser = userRepository.findAll().getFirst();
-		assertThat(savedUser.getFirstName()).isEqualTo("John");
-		assertThat(savedUser.getLastName()).isEqualTo("Doe");
+		assertThat(savedUser.getFirstName()).isEqualTo("Jan");
+		assertThat(savedUser.getLastName()).isEqualTo("Kowalski");
 	}
 }

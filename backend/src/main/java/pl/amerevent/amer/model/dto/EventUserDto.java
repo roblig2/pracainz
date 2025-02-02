@@ -7,15 +7,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDateDto {
+@NoArgsConstructor
+public class EventUserDto {
+	private String name;
 	private LocalDate date;
-	private String remark;
-
-//	public UserDateDto(LocalDate date, String remark) {
-//		this.date = date;
-//		this.remark = remark;
-//	}
-
+	private Boolean isEvent;
 }

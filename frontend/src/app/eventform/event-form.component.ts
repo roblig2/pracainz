@@ -170,8 +170,10 @@ export class EventFormComponent implements OnInit {
 
   getAvailableUsers(event: MatDatepickerInputEvent<any, any>) {
     this.bookedUsers.set([]);
+    debugger
     this.userService.getUsersByDate(new Date(event.target.value)).pipe(tap(value => {
       this.usersForEvent.set(value);
+      debugger
     })).subscribe();
   }
   getAvailablePackingUsers(event: MatDatepickerInputEvent<any, any>) {

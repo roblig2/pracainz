@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
-import jwt_decode, {jwtDecode} from 'jwt-decode';
+import {Injectable} from '@angular/core';
+import {jwtDecode} from 'jwt-decode';
 import {BehaviorSubject, Observable} from "rxjs";
 import {RoleEnum} from "../models/role.enum";
+
+const TOKEN = "token";
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +15,17 @@ export class JwtService {
   constructor() { }
 
   setToken(token: string) {
-    localStorage.setItem("token", token);
+    localStorage.setItem(TOKEN, token);
     this.loggedIn.next(!!token);
   }
 
   getToken():string|null{
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem(TOKEN);
     this.loggedIn.next(!!token);
     return token;
   }
   isLoggedIn():boolean{
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem(TOKEN);
     return token != null && this.notExpired(token);
   }
   isLoggedInContinuesCheck(): Observable<boolean> {
@@ -31,7 +33,12 @@ export class JwtService {
   }
   private notExpired(token: string) {
     let tokendDecoded = jwtDecode<any>(token);
-    return (tokendDecoded.exp * 1000) > new Date().getTime()
+
+    let isNotExpired = (tokendDecoded.exp * 1000) > new Date().getTime();
+    if (!isNotExpired) {
+      localStorage.removeItem(TOKEN);
+    }
+    return isNotExpired;
   }
 
   private parseJwt(token: string) {
@@ -45,15 +52,14 @@ export class JwtService {
   }
 
   logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem(TOKEN);
     this.loggedIn.next(false);
     return true;
   }
 
   getRoles():string[] {
     const token = this.getToken();
-    let authorities = token ? this.parseJwt(token)?.autorities : [];
-    return authorities;
+    return token ? this.parseJwt(token)?.autorities : [];
   }
   isAdmin():boolean{
     let roles = this.getRoles();

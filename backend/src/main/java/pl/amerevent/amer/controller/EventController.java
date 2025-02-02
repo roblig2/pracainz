@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.amerevent.amer.model.ERole;
 import pl.amerevent.amer.model.Event;
 import pl.amerevent.amer.model.User;
+import pl.amerevent.amer.model.dto.EventDto;
 import pl.amerevent.amer.model.dto.ResponseMessage;
 import pl.amerevent.amer.service.EventService;
 import pl.amerevent.amer.service.EventUserService;
@@ -23,11 +24,11 @@ public class EventController {
 	private final EventUserService eventUserService;
 
 	@PostMapping
-	public Event createEvent(@RequestBody Event event) {
+	public Event createEvent(@RequestBody EventDto event) {
 		return eventService.createEvent(event);
 	}
 	@PutMapping
-	public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
+	public ResponseEntity<Event> updateEvent(@RequestBody EventDto event) {
 		return eventService.updateEvent(event);
 	}
 

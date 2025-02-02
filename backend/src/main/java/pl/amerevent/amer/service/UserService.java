@@ -92,7 +92,7 @@ public class UserService {
 		eventSearchRequest.setSortOrder(Sort.Direction.ASC);
 		eventSearchRequest.setTwoCalendars(twoCalendars);
 		Page<Event> events = eventService.getAllEvents(eventSearchRequest);
-		List<EventDto> eventName = new ArrayList<>();
+		List<EventUserDto> eventName = new ArrayList<>();
 		Set<UUID> userIds = new HashSet<>();
 		events.forEach(event -> {
 			boolean isEvent = false;
@@ -103,7 +103,7 @@ public class UserService {
 			if (Objects.nonNull(event.getAvailablePackingUsers())) {
 				userIds.addAll(event.getAvailablePackingUsers().stream().map(User::getId).collect(Collectors.toSet()));
 			}
-			eventName.add(new EventDto(event.getName(), isEvent ? event.getDate() : event.getDatePacking(), isEvent));
+			eventName.add(new EventUserDto(event.getName(), isEvent ? event.getDate() : event.getDatePacking(), isEvent));
 		});
 		List<User> users = userRepository.findAvailableUsersByDateAndEventExclusion(date, userIds);
 		ArrayList<UserDto> userDtos = new ArrayList<>();
@@ -219,7 +219,7 @@ public class UserService {
 				.phoneNumber(user.getPhoneNumber())
 				.lastName(user.getLastName())
 				.username(user.getUserCredential().getUsername())
-				.definedRoles(user.getUserCredential().getRoles())
+//				.definedRoles(user.getUserCredential().getRoles())
 				.firstName(user.getFirstName())
 				.isDriver(user.getIsDriver())
 //				.events(eventName)
@@ -259,7 +259,8 @@ public class UserService {
 						event.setBlackListedUsers(new HashSet<>());
 					}
 					event.getBlackListedUsers().add(user);
-					eventService.updateEvent(event);
+					//todo
+//					eventService.updateEvent(event);
 				}
 		);
 

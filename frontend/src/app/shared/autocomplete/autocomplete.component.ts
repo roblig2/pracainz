@@ -17,7 +17,6 @@ import {MatDialog} from "@angular/material/dialog";
     MaterialModule,
     CommonModule,
     FormsModule,
-    SharedModule,
 
   ],
   templateUrl: './autocomplete.component.html',

@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private RoleRepository roleRepository;
 
 	public UserDetailsServiceImpl() {
-		System.out.println("UserDetailsServiceImpl created");
+//		System.out.println("UserDetailsServiceImpl created");
 	}
 
 	@Override

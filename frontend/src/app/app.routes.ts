@@ -49,7 +49,7 @@ export const routes: Routes = [
   {
     path: 'changePassword',
     loadComponent: () => ChangePasswordComponent,
-    canActivate: [AdminAuthGuard],
+    canActivate: [UserAuthGuard],
   },
   {
     path: 'createUser',

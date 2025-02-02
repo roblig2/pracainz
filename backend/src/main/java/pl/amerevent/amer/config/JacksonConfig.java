@@ -15,6 +15,7 @@ public class JacksonConfig {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
 		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		objectMapper.setDateFormat(new java.text.SimpleDateFormat("dd.MM.yyyy"));
 		objectMapper.getFactory().setStreamWriteConstraints(
 				StreamWriteConstraints.builder().maxNestingDepth(2500).build()

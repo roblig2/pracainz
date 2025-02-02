@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.io.IOException;
@@ -23,10 +24,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
 	private static final String TOKEN_HEADER = "Authorization";
 	private static final String TOKEN_PREFIX = "Bearer ";
-	private final UserDetailsServiceImpl userDetailsService;
+	private final UserDetailsService userDetailsService;
 	private final String secret;
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-	                              UserDetailsServiceImpl userDetailsService,
+	                              UserDetailsService userDetailsService,
 	                              String secret) {
 		super(authenticationManager);
 		this.userDetailsService = userDetailsService;
@@ -41,8 +42,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 			return;
 		}
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		authorities.forEach(authority -> System.out.println("Authority: " + authority.getAuthority()));
+//		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+//		authorities.forEach(authority -> System.out.println("Authority: " + authority.getAuthority()));
 
 		filterChain.doFilter(request, response);
 	}

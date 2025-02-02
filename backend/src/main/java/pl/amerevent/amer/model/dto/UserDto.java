@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.amerevent.amer.model.Role;
-import pl.amerevent.amer.model.UserDate;
+import pl.amerevent.amer.model.UserCredential;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,10 +25,11 @@ public class UserDto {
 		private String driverInfo;
 		private Set<UserDateDto> availableDates;
 		private String phoneNumber;
+		private UserCredential userCredential;
 
 		private LocalDate dateOfBirth;
 		private Set<Role> definedRoles;
 //		private String password;
-		private List<EventDto> events;
+		private List<EventUserDto> events;
 
 }
