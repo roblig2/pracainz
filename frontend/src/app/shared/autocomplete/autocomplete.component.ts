@@ -4,7 +4,7 @@ import {User} from "../../models/user";
 import {map} from "rxjs/operators";
 import {CommonModule} from "@angular/common";
 import {MaterialModule} from "../material.module";
-import {ControlContainer, FormControl, FormGroup, FormsModule} from "@angular/forms";
+import {ControlContainer, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared.module";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {ComplaintDialogComponent} from "../../components/complaint-dialog/complaint-dialog.component";
@@ -17,7 +17,8 @@ import {MatDialog} from "@angular/material/dialog";
     MaterialModule,
     CommonModule,
     FormsModule,
-
+    ReactiveFormsModule,
+    SharedModule
   ],
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.css',
