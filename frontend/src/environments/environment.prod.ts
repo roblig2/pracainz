@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  // backendUrl: 'http://52.28.62.67:8080/api'
-  // backendUrl: 'http://3.127.219.78:8080/api'
-  backendUrl: 'https://api.event-manager.online/api'
+  //todo
+  // backendUrl: 'https://api.event-manager.online/api'
+  backendUrl: 'http://localhost:8080/api'
 };
