@@ -15,7 +15,7 @@ services:
       dockerfile: conf/app/backend/Dockerfile
     container_name: spring-backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/pracainzdb?currentSchema=pracainz
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/amermanager?currentSchema=amermanager
       SPRING_DATASOURCE_USERNAME: robob
       SPRING_DATASOURCE_PASSWORD: Qwerty.1
     ports:

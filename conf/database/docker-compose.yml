@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: robob
       POSTGRES_PASSWORD: Qwerty.1
-      POSTGRES_DB: pracainzdb
+      POSTGRES_DB: amermanager
     ports:
       - "5432:5432"
     volumes:
@@ -19,4 +19,5 @@ volumes:
 
 networks:
   app-network:
-    external: true
+    name: app-network
+    driver: bridge
