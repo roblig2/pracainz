@@ -15,12 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.amerevent.amer.mapper.EventMapper;
 import pl.amerevent.amer.mapper.UserCollectionMapper;
-import pl.amerevent.amer.mapper.UserMapper;
 import pl.amerevent.amer.model.*;
 import pl.amerevent.amer.model.dto.EventDto;
 import pl.amerevent.amer.model.dto.EventSearchRequest;
 import pl.amerevent.amer.model.dto.ResponseMessage;
-import pl.amerevent.amer.model.dto.UserDto;
 import pl.amerevent.amer.repository.EventRepository;
 
 import java.time.LocalDate;
@@ -36,11 +34,10 @@ public class EventService {
 	public Event createEvent(EventDto eventDto) {
 		int usersSize = Objects.nonNull(eventDto.getAvailableUsers()) ? eventDto.getAvailableUsers().size() : 0;
 		Set<User> availableUsers = UserCollectionMapper.INSTANCE.toEntityCollection(eventDto.getAvailableUsers());
-//		.forEach(user -> availableUsers.add(UserMapper.INSTANCE.toEntity(user)));
 		Set<User> availablePackingUsers = UserCollectionMapper.INSTANCE.toEntityCollection(eventDto.getAvailablePackingUsers());
-//		User availableUser = UserMapper.INSTANCE.toEntity(eventDto.getAvailableUsers().stream().findFirst().get());
 
 		Event event = Event.builder()
+				.name(eventDto.getName())
 				.eventTime(eventDto.getEventTime())
 				.date(eventDto.getDate())
 				.datePacking(eventDto.getDatePacking())
